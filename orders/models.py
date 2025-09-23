@@ -14,4 +14,5 @@ class Order(models.Model):
     )
 
     def __str__(self):
+        status_name = self.status.name if self.status else "No Status"
         return f"Order #{self.id} - Status: {self.status}"
