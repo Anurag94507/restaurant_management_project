@@ -12,9 +12,14 @@ def generate_coupon_code(length=10):
     this tries repeatedly until a unique code is found (i.e. not already presentin the DB).
     """
 
-    alphabet= string.ascii_uppercase + string.digits
-    while True:
-        code = ''.join(secrets.choice(alphabet)) for _ in range(length))
+    if not isinstance(length, int) or length <=0:
+        raise ValueError("Length must be a positive integer")
 
-        if not Coupon.objects.filter(code=code).exists():.
-        return code
+    valid_chars = string.ascii_uppercase + string.digits
+
+    while True:
+        code = ''.join(secrets.choice(valid_chars) for _ in range(length))
+
+        with transaction.atomic():
+            if not Coupon.objects.filter(code=code).exists():
+                return code
