@@ -33,7 +33,8 @@ class order(models.Model):
     )
 
     def __str__(self):
-        status_name = self.status.name if self.status else "No Status"
+        status_label = self.status.name if self.status else "No Status"
+        created_str = self.created_at.strftime('%Y-%m-%d %H:%M')
         return f"Order #{self.id} - Status: {status_name} - Customer: {self.customer} - Created: {self.created_at.strftime('%Y-%m-%d %H:%M')}"
     class Meta:
         ordering = ['-created_at']
