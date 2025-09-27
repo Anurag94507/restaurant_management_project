@@ -5,4 +5,5 @@ app_name = 'home'
 
 urlpatterns = [
     path('api/categories', MenuCategoryListAPIView(), name='api-menu-categories'),
+    path('api/menu-items/search/', MenuItemSearchAPIView.as_view(), name='api-menuitems-search'),
 ]
