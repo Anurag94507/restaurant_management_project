@@ -25,6 +25,6 @@ class MenuItemSearchAPIView(generics.ListAPIView):
     def get_queryset(self):
         qs = MenuItem.objects.all()
         search_term = self.request.query_params.get('search', None)
-        if search_term:
-            qs =qs.filter(name_icontains=search_term)
+        if search:
+            qs =qs.filter(name_icontains=search)
         return qs
