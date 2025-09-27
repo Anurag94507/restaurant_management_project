@@ -1,9 +1,12 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import generics
-from .models import Menucategory
-from .serializers import MenucategorySerializers
+from rest_framework import generics, viewsets
+from rest_framework.response import response
+from rest_framework import status
+
+from .models import Menucategory, MenuItem
+from .serializers import MenucategorySerializer, MenuItemSerializer
 
 class MenucategoryListAPIView(generics.ListAPIView):
     """
@@ -12,3 +15,16 @@ class MenucategoryListAPIView(generics.ListAPIView):
     """
     queryset = Menucategory.objects.all()
     serializer_class = MenucategorySerializer
+
+class MenuItemSearchAPIView(generics.ListAPIView):
+    """
+    API endpoint to search menu items by name (using query param 'search').
+    """
+    serializer_class = MenuItemSerializer
+
+    def get_queryset(self):
+        qs = MenuItem.objects.all()
+        search_term = self.request.query_params.get('search', None)
+        if search_term:
+            qs =qs.filter(name_icontains=search_term)
+        return qs
