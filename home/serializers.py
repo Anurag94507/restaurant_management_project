@@ -10,6 +10,8 @@ class MenuItemSerializer(serializers.ModelSerializer):
     """
     Serializer for MenuItem model - used for listing and searching menu items.
     """
+    category = MenuCategorySerializer(read_only=True)
+    
     class Meta:
         model = MenuItem
         fields = ['id', 'name', 'description', 'price', 'category']
